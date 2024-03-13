@@ -34,7 +34,6 @@ progress() {
         zenity --progress \
             --title="Update System Logs" \
             --text="Scanning mail logs..." \
-            --pulsate \
             --percentage=0
 
     if [ "$?" = -1 ]; then
