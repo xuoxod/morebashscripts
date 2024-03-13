@@ -9,7 +9,7 @@
         - Unlocking user account
 COMMENT
 # declare -r PATH_TEMPLATE='^((/)?([a-zA-Z]+)(/[a-zA-Z]+/?)?$|/)'
-# declare -r EXIT_PROG=0
+declare -r EXIT_PROG=0
 # declare -r ROOT_UID=0
 # declare -r NON_ROOT=121
 # declare -r EXIT_UNKNOWN_USER=120
