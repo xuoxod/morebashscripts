@@ -73,7 +73,6 @@ while getopts ':c:pa:g:' OPTION; do
         arg="$OPTARG"
         generatePassword "$arg"
         ;;
-
     esac
 done
 shift "$(($OPTIND - 1))"
