@@ -24,6 +24,7 @@ set -o pipefail # Prevent pipeline errors from being masked
 source colortext-lib.sh
 source pather-lib.sh
 source notifier-lib.sh
+source text-generator-lib.sh
 
 clearVars() {
     unset $@ arg
@@ -52,7 +53,7 @@ synopsis() {
 
 trap "gracefulExit" INT PWR QUIT TERM
 
-while getopts ':c:pa:' OPTION; do
+while getopts ':c:pa:g:' OPTION; do
     case "$OPTION" in
     c)
         arg2="$2"
@@ -67,6 +68,12 @@ while getopts ':c:pa:' OPTION; do
     p)
         progress
         ;;
+
+    g)
+        arg2="$2"
+        generatePassword "$arg2"
+        ;;
+
     esac
 done
 shift "$(($OPTIND - 1))"
