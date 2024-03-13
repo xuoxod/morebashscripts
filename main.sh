@@ -56,13 +56,13 @@ trap "gracefulExit" INT PWR QUIT TERM
 while getopts ':c:pa:g:' OPTION; do
     case "$OPTION" in
     c)
-        arg2="$OPTARG"
-        checkPath "$arg2"
+        arg="$OPTARG"
+        checkPath "$arg"
         ;;
 
     a)
-        arg2="$OPTARG"
-        notify "$arg2"
+        arg="$OPTARG"
+        notify "$arg"
         ;;
 
     p)
