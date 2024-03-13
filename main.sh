@@ -9,7 +9,7 @@
         - Unlocking user account
 COMMENT
 # declare -r PATH_TEMPLATE='^((/)?([a-zA-Z]+)(/[a-zA-Z]+/?)?$|/)'
-declare -r EXIT_PROG=0
+# declare -r EXIT_PROG=0
 # declare -r ROOT_UID=0
 # declare -r NON_ROOT=121
 # declare -r EXIT_UNKNOWN_USER=120
@@ -32,7 +32,7 @@ clearVars() {
 
 gracefulExit() {
     clearVars
-    exit "$EXIT_PROG"
+    exit 0
 }
 
 exitProg() {
@@ -56,12 +56,12 @@ trap "gracefulExit" INT PWR QUIT TERM
 while getopts ':c:pa:g:' OPTION; do
     case "$OPTION" in
     c)
-        arg2="$2"
+        arg2="$OPTARG"
         checkPath "$arg2"
         ;;
 
     a)
-        arg2="$2"
+        arg2="$OPTARG"
         notify "$arg2"
         ;;
 
@@ -70,8 +70,8 @@ while getopts ':c:pa:g:' OPTION; do
         ;;
 
     g)
-        arg2="$2"
-        generatePassword "$arg2"
+        arg="$OPTARG"
+        generatePassword "$arg"
         ;;
 
     esac
