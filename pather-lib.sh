@@ -57,97 +57,109 @@ checkPath() {
             printf "Path [$arg] exists\n"
             if [ -f "$arg" ]; then
                 printf "Path [$arg] is a file\n"
+                # Check file is readable
                 if [ -r "$arg" ]; then
                     printf "File [$arg] is readable\n"
-                    if [ -w "$arg" ]; then
-                        printf "File [$arg] is writable\n"
-                    else
-                        text=$(printf "File [$arg] is not writable\n")
-                        red
-                        printf "$text\n"
-                    fi
                 else
                     text=$(printf "File [$arg] is not readable\n")
+                    red
+                    printf "$text\n"
+                fi
+                # Check file is writable
+                if [ -w "$arg" ]; then
+                    printf "File [$arg] is writable\n"
+                else
+                    text=$(printf "File [$arg] is not writable\n")
                     red
                     printf "$text\n"
                 fi
             elif [ -c "$arg" ]; then
                 printf "Path [$arg] is a character file\n"
+                # Check file is readable
                 if [ -r "$arg" ]; then
                     printf "File [$arg] is readable\n"
-                    if [ -w "$arg" ]; then
-                        printf "File [$arg] is writable\n"
-                    else
-                        text=$(printf "File [$arg] is not writable\n")
-                        red
-                        printf "$text\n"
-                    fi
                 else
                     text=$(printf "File [$arg] is not readable\n")
+                    red
+                    printf "$text\n"
+                fi
+                # Check file is writable
+                if [ -w "$arg" ]; then
+                    printf "File [$arg] is writable\n"
+                else
+                    text=$(printf "File [$arg] is not writable\n")
                     red
                     printf "$text\n"
                 fi
             elif [ -b "$arg" ]; then
                 printf "Path [$arg] is a block special file\n"
+                # Check file is readable
                 if [ -r "$arg" ]; then
                     printf "File [$arg] is readable\n"
-                    if [ -w "$arg" ]; then
-                        printf "File [$arg] is writable\n"
-                    else
-                        text=$(printf "File [$arg] is not writable\n")
-                        red
-                        printf "$text\n"
-                    fi
                 else
                     text=$(printf "File [$arg] is not readable\n")
+                    red
+                    printf "$text\n"
+                fi
+                # Check file is writable
+                if [ -w "$arg" ]; then
+                    printf "File [$arg] is writable\n"
+                else
+                    text=$(printf "File [$arg] is not writable\n")
                     red
                     printf "$text\n"
                 fi
             elif [ -L "$arg" ]; then
                 printf "Path [$arg] is a symbolic link\n"
+                # Check file is readable
                 if [ -r "$arg" ]; then
                     printf "File [$arg] is readable\n"
-                    if [ -w "$arg" ]; then
-                        printf "File [$arg] is writable\n"
-                    else
-                        text=$(printf "File [$arg] is not writable\n")
-                        red
-                        printf "$text\n"
-                    fi
                 else
                     text=$(printf "File [$arg] is not readable\n")
+                    red
+                    printf "$text\n"
+                fi
+                # Check file is writable
+                if [ -w "$arg" ]; then
+                    printf "File [$arg] is writable\n"
+                else
+                    text=$(printf "File [$arg] is not writable\n")
                     red
                     printf "$text\n"
                 fi
             elif [ -S "$arg" ]; then
                 printf "Path [$arg] is a socket\n"
+                # Check file is readable
                 if [ -r "$arg" ]; then
                     printf "File [$arg] is readable\n"
-                    if [ -w "$arg" ]; then
-                        printf "File [$arg] is writable\n"
-                    else
-                        text=$(printf "File [$arg] is not writable\n")
-                        red
-                        printf "$text\n"
-                    fi
                 else
                     text=$(printf "File [$arg] is not readable\n")
                     red
                     printf "$text\n"
                 fi
+                # Check file is writable
+                if [ -w "$arg" ]; then
+                    printf "File [$arg] is writable\n"
+                else
+                    text=$(printf "File [$arg] is not writable\n")
+                    red
+                    printf "$text\n"
+                fi
             elif [ -d "$arg" ]; then
                 printf "Path [$arg] is a directory\n"
+                # Check file is readable
                 if [ -r "$arg" ]; then
                     printf "Directory [$arg] is readable\n"
-                    if [ -w "$arg" ]; then
-                        printf "Directory [$arg] is writable\n"
-                    else
-                        text=$(printf "Directory [$arg] is not writable\n")
-                        red
-                        printf "$text\n"
-                    fi
                 else
                     text=$(printf "Directory [$arg] is not readable\n")
+                    red
+                    printf "$text\n"
+                fi
+                # Check file is writable
+                if [ -w "$arg" ]; then
+                    printf "Directory [$arg] is writable\n"
+                else
+                    text=$(printf "Directory [$arg] is not writable\n")
                     red
                     printf "$text\n"
                 fi
