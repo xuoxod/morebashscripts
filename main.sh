@@ -25,6 +25,8 @@ source colortext-lib.sh
 source pather-lib.sh
 source notifier-lib.sh
 source text-generator-lib.sh
+source reporter-lib.sh
+source scriptcompiler.sh
 
 clearVars() {
     unset $@ arg
@@ -53,7 +55,7 @@ synopsis() {
 
 trap "gracefulExit" INT PWR QUIT TERM
 
-while getopts ':c:pa:g:' OPTION; do
+while getopts ':c:pr:a:g:s:' OPTION; do
     case "$OPTION" in
     c)
         arg="$OPTARG"
@@ -72,6 +74,25 @@ while getopts ':c:pa:g:' OPTION; do
     g)
         arg="$OPTARG"
         generatePassword "$arg"
+        ;;
+
+    r)
+        arg="$OPTARG"
+        if [ $# -eq 3 ]; then
+            # arg1="$1"
+            # arg2="$2"
+            arg3="$3"
+            # printf "arg:\t$arg\n"
+            # printf "arg1:\t$arg1\n"
+            # printf "arg2:\t$arg2\n"
+            # printf "arg3:\t$arg3\n"
+            report "$arg" "$arg3"
+        fi
+        ;;
+
+    s)
+        arg="$OPTARG"
+        compileScript "$arg"
         ;;
     esac
 done

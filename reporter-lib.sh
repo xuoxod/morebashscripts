@@ -2,7 +2,10 @@
 
 report() {
     fileName="$1"
+    if [ ! -e "./$fileName-report.txt" ]; then
+        touch "./$fileName-report.txt"
+    fi
+
     results="$2"
-    touch "./$fileName-report.txt"
-    printf "$results" >>"./$fileName-report.txt"
+    printf "$results\n" >>"./$fileName-report.txt"
 }
