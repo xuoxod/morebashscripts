@@ -49,5 +49,10 @@ compileScript() {
             white
             printf "$text\n"
         fi
+    else
+        err="Expected a 'bin' directory in your home directory but it does not exist"
+        text="$err"
+        white
+        printf "$text\n"
     fi
 }
