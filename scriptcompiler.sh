@@ -48,7 +48,6 @@ compileScript() {
             text="$err"
             white
             printf "$text\n"
-
         fi
     fi
 }
