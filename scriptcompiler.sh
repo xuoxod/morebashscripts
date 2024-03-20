@@ -35,7 +35,7 @@ compileScript() {
             filebase=$(basename -s ".$suffix" "$filepath")
             fullpath="$filepath$filebase"
             parentDir="$(dirname $fullpath)"
-            if [ -n "$filename" ] && [ -n "$suffix" ]; then
+            if [ -n "$filename" ] && [ -n "$suffix" ] && [ "$suffix" = "sh" ]; then
                 printf "filepath:\t$filepath\n"
                 printf "filebase:\t$filebase\n"
                 printf "filename:\t$filename\n"
