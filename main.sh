@@ -81,13 +81,7 @@ while getopts ':c:pr:a:g:s:' OPTION; do
     r)
         arg="$OPTARG"
         if [ $# -eq 3 ]; then
-            # arg1="$1"
-            # arg2="$2"
             arg3="$3"
-            # printf "arg:\t$arg\n"
-            # printf "arg1:\t$arg1\n"
-            # printf "arg2:\t$arg2\n"
-            # printf "arg3:\t$arg3\n"
             report "$arg" "$arg3"
         fi
         ;;
