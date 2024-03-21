@@ -52,7 +52,13 @@ synopsis() {
     printf "$text\n"
     text=$(printf "$MAINDESC\n")
     white
-    printf "$text\n\n"
+    printf "$text\n"
+    text=$(printf "Synopsis:  $0 -<[capgrsh]>\n\tc: Confirm path\n\ta: Create an alert\n\tg: Generate a password\n\tr: Create a report text file\n\t   Requires 2 arguments - arg1: File name, arg2: The text data\n\ts: Compile a shell script file\n")
+    white
+    printf "$text\n"
+    text=$(printf -- '%.0s-' {1..73})
+    green
+    printf "$text\n"
 }
 
 trap "gracefulExit" INT PWR QUIT TERM
