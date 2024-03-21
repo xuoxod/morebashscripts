@@ -14,8 +14,10 @@ COMMENT
 # declare -r NON_ROOT=121
 # declare -r EXIT_UNKNOWN_USER=120
 # declare -r EXIT_UNKNOWN_GROUP=119
-# declare -r PROG="Path Finder"
-# declare -r DESC="Administrative helper script use for confirming and/or manipulating paths"
+declare -r MAINPROGNAME="Admin Helper"
+declare MAIN="$MAINPROGNAME"
+declare -r MAINDESCRIPTION="Administrative helper script used as a short-cut to calling BASH commands"
+declare -r MAINDESC="$MAINDESCRIPTION"
 
 set -e          # Exit if any command has a non-zero exit status
 set -u          # Set variables before using them
@@ -42,13 +44,13 @@ exitProg() {
 }
 
 synopsis() {
-    text=$(printf "\t\t\t\t $PROG\n")
+    text=$(printf "\t\t\t\t ${MAIN}\n")
     white
     printf "$text\n"
     text=$(printf -- '%.0s-' {1..73})
     green
     printf "$text\n"
-    text=$(printf "$DESC\n")
+    text=$(printf "$MAINDESC\n")
     white
     printf "$text\n\n"
 }
@@ -93,6 +95,10 @@ while getopts ':c:pr:a:g:s:' OPTION; do
     s)
         arg="$OPTARG"
         compileScript "$arg"
+        ;;
+
+    *)
+        synopsis
         ;;
     esac
 done

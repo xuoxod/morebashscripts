@@ -14,8 +14,10 @@ declare -r ROOT_UID=0
 declare -r NON_ROOT=121
 declare -r EXIT_UNKNOWN_USER=120
 declare -r EXIT_UNKNOWN_GROUP=119
-declare -r PROG="Path Finder"
-declare -r DESC="Administrative helper script use for confirming and/or manipulating paths"
+declare -r PATHERPROGNAME="Path Finder"
+declare PATHER="$PATHERPROGNAME"
+declare -r PATHERDESCRIPTION="Administrative helper script use for confirming and/or manipulating paths"
+declare PATHDESC="$PATHERDESCRIPTION"
 
 set -e          # Exit if any command has a non-zero exit status
 set -u          # Set variables before using them
@@ -37,13 +39,13 @@ exitProg() {
 }
 
 synopsis() {
-    text=$(printf "\t\t\t\t $PROG\n")
+    text=$(printf "\t\t\t\t $PATHER\n")
     white
     printf "$text\n"
     text=$(printf -- '%.0s-' {1..73})
     green
     printf "$text\n"
-    text=$(printf "$DESC\n")
+    text=$(printf "$PATHERDESC\n")
     white
     printf "$text\n\n"
 }
