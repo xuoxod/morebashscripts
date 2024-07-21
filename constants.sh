@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-declare -r PATH_PATTERN='^((/)?([a-zA-Z]+)(/[a-zA-Z]+/?)?$|/)'
-declare -r WORD_PATTERN='^[a-zA-Z]+$'
-declare -r NUMBER_PATTERN='^[0-9]+$'
-declare -r ALPHA_NUM_PATTERN='^([0-9]+|[A-Za-z]+)$'
+declare -r EXIT_PROG=0
+declare -r ROOT_UID=0
+declare -r NON_ROOT=121
+declare -r EXIT_UNKNOWN_USER=120
+declare -r EXIT_UNKNOWN_GROUP=119
+declare -r PROG="Path Finder"
+declare -r DESC="Administrative helper script use for confirming and/or manipulating paths"

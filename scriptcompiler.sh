@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/usr/bin/env bash
 source colortext-lib.sh
 # if [ -d "$HOME/bin" ]; then
 #     cd "$HOME/bin"
@@ -41,7 +41,11 @@ compileScript() {
                 printf "filename:\t$filename\n"
                 printf "suffix:\t$suffix\n"
                 printf "parent dir:\t$parentDir\n"
-                shc -o "$HOME/bin/$filebase" -f "$filepath"
+                # shc -Uf "$filepath" -o "$HOME/bin/$filebase"
+                shc -Uf "$filepath" -o "$HOME/bin/$filebase"
+                text="\n\t\t  Compile the script here\n\n"
+                white
+                printf "$text"
             fi
         else
             err="File path '$1' does not exist or is not a valid script file"

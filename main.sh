@@ -1,105 +1,64 @@
 #!/usr/bin/env bash
 <<COMMENT
-    Administrative helper script use for:
-        - Adding user to sudo group
-        - Adding user to given group
-        - Removing user from sudo group
-        - Listing user's group(s)
-        - Locking user account
-        - Unlocking user account
+    Helper script
 COMMENT
-# declare -r PATH_TEMPLATE='^((/)?([a-zA-Z]+)(/[a-zA-Z]+/?)?$|/)'
-# declare -r EXIT_PROG=0
-# declare -r ROOT_UID=0
-# declare -r NON_ROOT=121
-# declare -r EXIT_UNKNOWN_USER=120
-# declare -r EXIT_UNKNOWN_GROUP=119
-declare -r MAINPROGNAME="Admin Helper"
-declare MAIN="$MAINPROGNAME"
-declare -r MAINDESCRIPTION="Administrative helper script used as a short-cut to calling BASH commands"
-declare -r MAINDESC="$MAINDESCRIPTION"
 
 set -e          # Exit if any command has a non-zero exit status
 set -u          # Set variables before using them
 set -o pipefail # Prevent pipeline errors from being masked
+set -m          # enable job control
 # set -x Prints command to the console
-source colortext-lib.sh
-source pather-lib.sh
-source notifier-lib.sh
-source text-generator-lib.sh
-source reporter-lib.sh
-source scriptcompiler.sh
+source constants.sh
+source patterns.sh
+source actions.sh
+
+ARG=""
+MSG=""
+SCRIPT=""
+ARG_COUNT=0
 
 clearVars() {
-    unset $@ arg
+    unset ARG MSG SCRIPT
 }
 
 gracefulExit() {
     clearVars
-    exit 0
+    exit "$EXIT_PROG"
 }
 
 exitProg() {
     gracefulExit
 }
 
-synopsis() {
-    text=$(printf "\t\t\t\t ${MAIN}\n")
-    white
-    printf "$text\n"
-    text=$(printf -- '%.0s-' {1..73})
-    green
-    printf "$text\n"
-    text=$(printf "$MAINDESC\n")
-    white
-    printf "$text\n"
-    text=$(printf "Synopsis:  $0 -<[capgrsh]>\n\tc: Confirm path\n\ta: Create an alert\n\tg: Generate a password\n\tr: Create a report text file\n\t   Requires 2 arguments - arg1: File name, arg2: The text data\n\ts: Compile a shell script file\n")
-    white
-    printf "$text\n"
-    text=$(printf -- '%.0s-' {1..73})
-    green
-    printf "$text\n"
-}
+trap "gracefulExit" INT TERM QUIT PWR STOP KILL
 
-trap "gracefulExit" INT PWR QUIT TERM
-
-while getopts ':c:pr:a:g:s:' OPTION; do
-    case "$OPTION" in
-    c)
-        arg="$OPTARG"
-        checkPath "$arg"
-        ;;
-
-    a)
-        arg="$OPTARG"
-        notify "$arg"
-        ;;
-
+while getopts ':?sp' OPTION; do
+    case "${OPTION}" in
     p)
-        progress
-        ;;
+        ARGS=$@
+        ARG_COUNT=$#
+        SCRIPT=$0
+        SWITCH=$1
+        MSG="\n\n"
 
-    g)
-        arg="$OPTARG"
-        generatePassword "$arg"
-        ;;
+        if [[ "$ARG_COUNT" -eq 1 ]]; then
+            generateNonpronounceblePassword
+        elif [[ "$ARG_COUNT" -eq 2 ]]; then
+            ARG1=$2
+            printf "Argument Provided: $ARG1\n"
 
-    r)
-        arg="$OPTARG"
-        if [ $# -eq 3 ]; then
-            arg3="$3"
-            report "$arg" "$arg3"
+            if [ "$ARG1" == "off" ]; then
+                generatePronounceblePassword
+            else
+                generateNonpronounceblePassword
+            fi
         fi
         ;;
 
     s)
-        arg="$OPTARG"
-        compileScript "$arg"
+        randomStringGeneratorSynopsis
         ;;
 
-    *)
-        synopsis
-        ;;
     esac
 done
 shift "$(($OPTIND - 1))"
