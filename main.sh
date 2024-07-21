@@ -36,8 +36,8 @@ pflag=
 sflag=
 start=
 final=
-
-while getopts ':?sp' OPTION; do
+optspec="sp-"
+while getopts "$optspec" OPTION; do
     case "${OPTION}" in
     p)
         ARGS=$@
