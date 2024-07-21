@@ -45,8 +45,6 @@ while getopts ':?sp' OPTION; do
             generateNonpronounceblePassword
         elif [[ "$ARG_COUNT" -eq 2 ]]; then
             ARG1=$2
-            printf "Argument Provided: $ARG1\n"
-
             if [ "$ARG1" == "off" ]; then
                 generatePronounceblePassword
             else
