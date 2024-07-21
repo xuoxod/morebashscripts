@@ -56,23 +56,40 @@ gnp() {
 }
 
 usage() {
-    printf "Usage:\t $0 - <[p]> [--overwrite]\n"
+    printf "\nUsage:\t $0 -<[ps]> [off]\n  Notice optional argument is without a dash or double dash\n\n"
     exitProg
 }
 
 randomStringGeneratorSynopsis() {
-    printf " \nSynopsis:\t $0 <Option> [Argument]\n\n"
-    printf "Usage:\t $0 - <[p]> [argument]\n\n\n"
+    printf " \nSynopsis:\t $0 <[OPTION]> [ARGUMENT]\n\n"
+    printf "Usage:\t $0 - <[ps]> [argument]\n\n\n"
     printf "Options:\n\n"
-    printf "\tp: Generates a random string. By default the value is a non-pronouncable string. To override this, use the 'off' argument to generate a pronouncable random string.\n\n"
-    printf "\tExample:\n"
-    printf "\t\t$0 -p off\n\n"
+    printf "\t-p:   Generate a random non-pronouncable string.\n"
+    printf "\n\t          Example:\n"
+    printf "\n\t               $0 -p off\n\n"
     exitProg
 }
 
 endProg() {
     printf "$MSG"
     gracefulExit
+}
+
+# Display network cards
+displayNCards() {
+    sudo lshw -class network
+}
+
+displayNCardsShort() {
+    sudo lshw -class network -short
+}
+
+displayEth() {
+    # sudo apt install ethtool -y
+    for N in $(netface); do
+        sudo ethtool "$N"
+        printf "\n\n"
+    done
 }
 
 # trap "gracefulExit" INT TERM QUIT PWR STOP KILL
