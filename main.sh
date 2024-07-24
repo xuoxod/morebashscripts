@@ -18,7 +18,7 @@ SCRIPT=""
 ARG_COUNT=0
 
 clearVars() {
-    unset ARG MSG SCRIPT
+    unset ARG MSG SCRIPT ARG_COUNT
 }
 
 gracefulExit() {
@@ -30,13 +30,23 @@ exitProg() {
     gracefulExit
 }
 
+programSynopsis() {
+    printf " \nSynopsis:\t $0 <[OPTION]> [ARGUMENT]\n\n"
+    printf "Usage:\t $0 - <[ps]> [argument]\n\n\n"
+    printf "Options:\n\n"
+    printf "\t-p:   Generate a random non-pronouncable string.\n"
+    printf "\n\t          Example:\n"
+    printf "\n\t               $0 -p off\n\n"
+    exitProg
+}
+
 trap "gracefulExit" INT TERM QUIT PWR STOP KILL
 
 pflag=
 sflag=
 start=
 final=
-optspec="sp-"
+optspec=":sp-"
 while getopts "$optspec" OPTION; do
     case "${OPTION}" in
     p)
@@ -64,6 +74,11 @@ while getopts "$optspec" OPTION; do
         randomStringGeneratorSynopsis
         ;;
 
+    *)
+        if [ "$OPTERR" != 1 ] || [ "${optspec:0:1}" = ":" ]; then
+            printf "Illegal flag: '-${OPTARG}'\n\n" >&2
+        fi
+        ;;
     esac
 done
 
