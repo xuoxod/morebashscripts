@@ -31,6 +31,9 @@ for I in $(ip -4 addr show | awk -F : '{print $2}' | grep -E "[a-z0-9][^\b(lo)\b
 done
 
 -------------------------------
+netfaces=$(
+    ip -4 addr show | awk -F : '{print $2}' | grep -E "[a-z0-9][^\b(lo)\b]{2}" | awk '{gsub(/[ \t\n\r]/,"");print}'
+)
 
 for I in $(netfaces); do
     [ I != "docker*" ] && interface="$I"
