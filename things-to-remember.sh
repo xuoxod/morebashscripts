@@ -8,6 +8,9 @@ ip -4 addr show | awk -F : '{print $2}' | grep -E "[a-z0-9][^\b(lo)\b]{2}" | awk
 # Tweaked to include ingnoring any docker interfaces
 ip -4 addr show | awk -F : '{print $2}' | grep -E "[a-z0-9][^\b(lo)\b\b(docker*)\b]{2}"
 
+# Tweaked a little more to remove any spacing character
+ip -4 addr show | awk -F : '{print $2}' | grep -E "[a-z0-9][^\b(lo)\b\b(docker*)\b]{2}" | awk '{gsub(/[ \t\n\r]/,"");print}'
+
 for I in $(ip -4 addr show | awk -F : '{print $2}' | grep -E "[a-z0-9A-Z][^\b(lo)\b]{2}"); do
     printf "$I\n"
     sleep 1
