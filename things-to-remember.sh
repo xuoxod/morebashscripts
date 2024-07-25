@@ -11,6 +11,9 @@ ip -4 addr show | awk -F : '{print $2}' | grep -E "[a-z0-9][^\b(lo)\b\b(docker*)
 # Tweaked a little more to remove any spacing character
 ip -4 addr show | awk -F : '{print $2}' | grep -E "[a-z0-9][^\b(lo)\b\b(docker*)\b]{2}" | awk '{gsub(/[ \t\n\r]/,"");print}'
 
+# Dependant on netface script value, output the ipv6
+ip -6 addr show "$(netface)" | grep -E "inet6 (([a-zA-Z0-9])::?)*" | awk '{print $2}' | awk -F / '{print $1}'
+
 for I in $(ip -4 addr show | awk -F : '{print $2}' | grep -E "[a-z0-9A-Z][^\b(lo)\b]{2}"); do
     printf "$I\n"
     sleep 1
