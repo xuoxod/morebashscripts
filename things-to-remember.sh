@@ -1,7 +1,12 @@
 #    Find network interfaces
 
 # The netface formula
+
+# This will output all working network interfaces except the loopback.
 ip -4 addr show | awk -F : '{print $2}' | grep -E "[a-z0-9][^\b(lo)\b]{2}" | awk '{gsub(/[ \t\n\r]/,"");print}'
+
+# Tweaked to include ingnoring any docker interfaces
+ip -4 addr show | awk -F : '{print $2}' | grep -E "[a-z0-9][^\b(lo)\b\b(docker*)\b]{2}"
 
 for I in $(ip -4 addr show | awk -F : '{print $2}' | grep -E "[a-z0-9A-Z][^\b(lo)\b]{2}"); do
     printf "$I\n"
@@ -46,6 +51,7 @@ for I in $(ip -4 addr show | awk -F : '{print $2}' | grep -E "[a-z0-9][^\b(lo)\b
 done
 
 -------------------------------
+ip -6 addr show wlp2s0 | cut -d ':' -f2 | cut -d ' ' -f2
 -------------------------------
 -------------------------------
 -------------------------------
